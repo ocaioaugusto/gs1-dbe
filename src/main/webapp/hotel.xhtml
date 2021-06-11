@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+<ui:composition template="_template.xhtml">
+	<ui:define name="content">
+		<p:messages id="messages">
+			<p:autoUpdate />
+		</p:messages>
+		<h:form>
+			<p:card class="card-form">
+				<f:facet name="title">
+			        Novo hotel
+			    </f:facet>
+				<div class="p-field p-grid">
+					<p:outputLabel value="Nome" for="name" class="p-col-fixed" style="width: 100px" />
+					<div class="p-col">
+						<p:inputText id="name" value="#{hotelBean.hotel.name}"
+							required="true">
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+					</div>
+				</div>
+
+				<div class="p-field p-grid">
+					<p:outputLabel value="Descrição" for="description"
+						class="p-col-fixed" style="width: 100px" />
+					<div class="p-col">
+						<p:inputTextarea id="description"
+							value="#{hotelBean.hotel.description}">
+							<f:validateLength maximum="255" minimum="15" />
+							<f:ajax event="blur" render="messages" />
+						</p:inputTextarea>
+					</div>
+				</div>
+
+				<div class="p-field p-grid">
+					<p:outputLabel value="Preço" for="price" class="p-col-fixed"
+						style="width: 100px" />
+					<div class="p-col">
+						<p:inputText id="price" value="#{hotelBean.hotel.price}"
+							required="true">
+							<f:validateDoubleRange minimum="0" />
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+					</div>
+				</div>
+				
+				<div class="p-field p-grid">
+					<p:outputLabel value="URL da foto de local" for="imgUrl"
+						class="p-col-fixed" style="width: 100px" />
+					<div class="p-col">
+						<p:inputText id="imgUrl"
+							value="#{hotelBean.hotel.imgUrl}">
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+					</div>
+				</div>
+				
+				<div class="p-field p-grid">
+					<p:outputLabel value="Legenda" for="caption"
+						class="p-col-fixed" style="width: 100px" />
+					<div class="p-col">
+						<p:inputText id="caption"
+							value="#{hotelBean.hotel.caption}">
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+					</div>
+				</div>
+				
+				<div class="p-field p-grid">
+					<p:outputLabel value="Link do site" for="link" class="p-col-fixed" style="width: 100px" />
+					<div class="p-col">
+						<p:inputText id="link" value="#{hotelBean.hotel.link}"
+							required="true">
+							<f:ajax event="blur" render="messages" />
+						</p:inputText>
+					</div>
+				</div>
+				
+				<div class="p-field p-grid">
+					<p:outputLabel value="Avaliação" for="rating" class="p-col-fixed"
+						style="width: 100px" />
+					<div class="p-col">
+						<p:rating id="rating" value="#{hotelBean.hotel.rating}"
+							required="true">
+							<f:ajax event="rate" render="messages" />
+						</p:rating>
+					</div>
+				</div>
+
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-check" value="Cadastrar" action="#{hotelBean.save}">
+						<f:ajax execute="@form" render="messages :hotels" />
+					</p:commandButton>
+					<p:commandButton icon="pi pi-times" value="Cancelar"
+						styleClass="ui-button-secondary" style="margin-left: .5em" />
+				</f:facet>
+			</p:card>
+		</h:form>
+
+
+		<div class="card">
+			<h:form id="form">
+				<p:dataTable id="hotels" var="hotel"
+					value="#{hotelBean.hotels}" 
+					rowKey="#{hotel.id}"
+					selectionMode="single">
+					
+					<p:column headerText="Nome">
+						<h:outputText value="#{hotel.name}" />
+					</p:column>
+					<p:column headerText="Descrição">
+						<h:outputText value="#{hotel.description}" />
+					</p:column>
+					<p:column headerText="Preço">
+						<h:outputText value="#{hotel.price}" />
+					</p:column>
+					<p:column headerText="Link do site">
+						<h:outputText value="#{hotel.link}" />
+					</p:column>
+					<p:column headerText="Avaliação">
+						<h:outputText value="#{hotel.rating}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+
+
+
+
+</html>
